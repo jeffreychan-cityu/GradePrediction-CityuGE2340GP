@@ -7,7 +7,7 @@ This directory contains the browser interface and desktop wrapper.
 | [demo/](demo/README.md) | Shared interface, prediction adapters and model data | [Open the browser demo](demo/index.html) |
 | [desktop/](desktop/README.md) | Electron window controls, icon and Windows packaging | Run `npm start` from `app/desktop/` |
 
-For presentations, run the [portable Windows executable](../GE2340-Model-Explorer-1.0.0-Windows.exe) in the package root.
+For presentations, download the [portable Windows executable](https://github.com/wdffdw07/GradePrediction-CityuGE2340GP/releases/download/v1.0.0/GE2340-Model-Explorer-1.0.0-Windows.exe) from [Release v1.0.0](https://github.com/wdffdw07/GradePrediction-CityuGE2340GP/releases/tag/v1.0.0) and run it. A local copy is also available in the package root.
 
 Edit the interface or add a trained classifier in `app/demo/`. Edit window behavior and packaging in `app/desktop/`. Both runtimes use the same interface. Existing model outputs remain in the package root's `outputs/` folder.
 

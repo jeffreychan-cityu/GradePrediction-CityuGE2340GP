@@ -76,7 +76,7 @@ ge2340_data_package_v3/
 └── reference_zh/   # Chinese reference materials for the owner
 ```
 
-**For presentations:** double-click the [Windows executable](GE2340-Model-Explorer-1.0.0-Windows.exe). It includes the runtime and model and works offline. Alternatively, open [app/demo/index.html](app/demo/index.html) in a browser. The previous root-level `demo/` path has moved to `app/demo/`.
+**For presentations:** download the [Windows executable](https://github.com/wdffdw07/GradePrediction-CityuGE2340GP/releases/download/v1.0.0/GE2340-Model-Explorer-1.0.0-Windows.exe) from [Release v1.0.0](https://github.com/wdffdw07/GradePrediction-CityuGE2340GP/releases/tag/v1.0.0) and double-click it. It includes the runtime and model and works offline. Alternatively, open [app/demo/index.html](app/demo/index.html) in a browser. The previous root-level `demo/` path has moved to `app/demo/`.
 
 **For interface or classifier work:** edit `app/demo/`. The current app runs linear regression and maps its prediction to a relative group and an estimated position within the training set. Softmax is not yet connected. Follow the [model adapter contract](app/demo/README.md#adding-jeffreys-softmax-classifier) to add the trained classifier.
 

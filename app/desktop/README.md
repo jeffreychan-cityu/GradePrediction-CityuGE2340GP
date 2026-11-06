@@ -4,7 +4,7 @@ The Windows app wraps the existing [model explorer](../demo/README.md) with a cu
 
 ## Run the packaged app
 
-Use `GE2340-Model-Explorer-1.0.0-Windows.exe` in the main `ge2340_data_package_v3` folder. It is a Windows x64 portable app; no Node.js, Python, browser or separate model installation is needed. Its initial launch extracts the bundled runtime into a temporary directory.
+Download [GE2340-Model-Explorer-1.0.0-Windows.exe](https://github.com/wdffdw07/GradePrediction-CityuGE2340GP/releases/download/v1.0.0/GE2340-Model-Explorer-1.0.0-Windows.exe) from [Release v1.0.0](https://github.com/wdffdw07/GradePrediction-CityuGE2340GP/releases/tag/v1.0.0), or use the local copy in the main `ge2340_data_package_v3` folder. It is a Windows x64 portable app; no Node.js, Python, browser or separate model installation is needed. Its initial launch extracts the bundled runtime into a temporary directory.
 
 The app includes the same fitted model, preprocessing reference and grade display as the browser demo. Predictions work offline. The source attribution link opens in the default browser when clicked.
 
