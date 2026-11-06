@@ -10,7 +10,7 @@ This package contains the shared data, completed baseline experiments and materi
 | Write the report | [English analysis report v5](GE2340_Data_Analysis_EN_v5.md) | [Technical findings](docs/FINDINGS.md), result CSVs and original figures |
 | Prepare comparisons and slides | [English analysis report v5](GE2340_Data_Analysis_EN_v5.md) | [Figure mapping](docs/FINDINGS.md#figure-guide) and `outputs/figures/` |
 
-Use the Markdown report for edits and team writing. The PDF preserves the original v5 report. Team documentation is in English; the corresponding Chinese report and personal reference materials are in [reference_zh/](reference_zh/).
+Use the Markdown report for edits and team writing. The PDF is generated from the current v5 Markdown report; update both formats when revising the report. Team documentation is in English; the corresponding Chinese report and personal reference materials are in [reference_zh/](reference_zh/).
 
 ## Current state
 
@@ -25,7 +25,7 @@ Use the existing 1,200/400/400 train/validation/test split and preprocessing par
 | Location | Contents |
 |---|---|
 | [Editable English report](GE2340_Data_Analysis_EN_v5.md) | Edited Markdown working copy based on v5 |
-| [Original English PDF v5](GE2340_Data_Analysis_EN_v5.pdf) | Source PDF retained for reference |
+| [English PDF v5](GE2340_Data_Analysis_EN_v5.pdf) | Reading copy generated from the current Markdown report |
 | [docs/HANDOFF.md](docs/HANDOFF.md) | Inputs, fixed experiment settings and handoff files |
 | [docs/FINDINGS.md](docs/FINDINGS.md) | Existing results, interpretation and figure mapping |
 | [docs/PHASE1_VERIFICATION.md](docs/PHASE1_VERIFICATION.md) | Historical verification of the submitted Phase 1 method |

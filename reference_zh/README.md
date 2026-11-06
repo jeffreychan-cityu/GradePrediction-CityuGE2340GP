@@ -17,12 +17,12 @@
 - [英文技术结果说明](../docs/FINDINGS.md)：查阅详细指标、结果解释和图表对应关系。
 - [英文接手入口](../README.md)：按组员任务选择阅读顺序，并查看运行命令。
 
-## 原始 PDF
+## 当前 PDF
 
 - [中文分析报告 v5 PDF](GE2340_Data_Analysis_ZH_v5.pdf)
 - [英文分析报告 v5 PDF](../GE2340_Data_Analysis_EN_v5.pdf)
 
-PDF 保留下载时的原始内容；后续文字润色和修改记录在 Markdown 中。
+PDF 已按当前中英文 Markdown 分别重新生成。后续修改 Markdown 后，需同步更新对应 PDF。
 
 ## 演示程序与网页（补充）
 
