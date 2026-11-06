@@ -1,0 +1,12 @@
+.desktop-app body{padding-top:44px}
+.desktop-titlebar{height:44px;position:fixed;inset:0 0 auto;z-index:1000;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid #e2e7ef;user-select:none;-webkit-app-region:drag;app-region:drag}
+.desktop-identity{display:flex;align-items:center;gap:10px;margin-left:18px;font-size:12px;font-weight:650;letter-spacing:.1px;color:#20334e}
+.desktop-logo{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:#245bd7;color:#fff;font:italic 20px Georgia,serif;padding-bottom:3px}
+.desktop-divider{color:#a6b1c0;margin:0 8px;font-weight:400}.desktop-subtitle{font-weight:400;color:#607086}
+.desktop-local{font-size:8px;letter-spacing:1.6px;color:#7b899c;margin-left:auto;margin-right:24px}
+.desktop-controls{height:100%;display:flex;-webkit-app-region:no-drag;app-region:no-drag}
+.desktop-controls button{display:grid;place-items:center;width:46px;height:100%;padding:0;border:0;border-radius:0;background:transparent;color:#536278}
+.desktop-controls button:hover{background:#eaf0f9;color:#245bd7}.desktop-controls button:focus-visible{outline:2px solid #245bd7;outline-offset:-3px}
+.desktop-controls #window-close:hover{background:#d94343;color:#fff}.desktop-controls svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:1.2}
+.desktop-app .masthead{height:84px}.desktop-app .intro{padding-top:32px}
+@media(max-width:850px){.desktop-local{display:none}}

@@ -1,0 +1,50 @@
+{
+  "raw_rows": 2000,
+  "clean_rows": 2000,
+  "raw_columns": [
+    "Student_ID",
+    "Study_Hours_Per_Day",
+    "Extracurricular_Hours_Per_Day",
+    "Sleep_Hours_Per_Day",
+    "Social_Hours_Per_Day",
+    "Physical_Activity_Hours_Per_Day",
+    "Stress_Level",
+    "Gender",
+    "Grades"
+  ],
+  "excluded_features": [
+    "Student_ID",
+    "Stress_Level",
+    "Gender"
+  ],
+  "null_counts": {
+    "Student_ID": 0,
+    "Study_Hours_Per_Day": 0,
+    "Extracurricular_Hours_Per_Day": 0,
+    "Sleep_Hours_Per_Day": 0,
+    "Social_Hours_Per_Day": 0,
+    "Physical_Activity_Hours_Per_Day": 0,
+    "Stress_Level": 0,
+    "Gender": 0,
+    "Grades": 0
+  },
+  "exact_duplicate_rows": 0,
+  "duplicate_student_ids": 0,
+  "rows_removed": 0,
+  "rows_imputed": 0,
+  "hours_sum_min": 23.999999999999996,
+  "hours_sum_max": 24.000000000000004,
+  "all_hours_sum_24": true,
+  "centered_train_feature_rank": 4,
+  "observed_Grades_min": 5.6,
+  "observed_Grades_max": 10.0,
+  "theoretical_grade_scale": "unverified; keep original values",
+  "split_counts": {
+    "train": 1200,
+    "test": 400,
+    "validation": 400
+  },
+  "seed": 2340,
+  "raw_sha256": "51b68ee5950b3c38f2c7714f4fcda0378a301c9b31400a0eccfd4a13c70284c7",
+  "classification": "approved"
+}

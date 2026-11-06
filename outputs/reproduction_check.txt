@@ -1,0 +1,1 @@
+PASS: 30 CSV/JSON outputs byte-identical to v2 full rerun. Only regression_model.json verification metadata changed, with identical model parameters. All data, splits, labels, predictions and metrics unchanged. V2 reproducibility established separately. 11 v3 unittest checks passed.

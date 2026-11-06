@@ -1,0 +1,20 @@
+{
+  "majority_class": "B",
+  "fit_split": "train",
+  "train_class_counts": {
+    "F": 238,
+    "D": 236,
+    "C": 234,
+    "B": 249,
+    "A": 243
+  },
+  "tie_rule": "first in F,D,C,B,A",
+  "cutpoints": [
+    7.1,
+    7.55,
+    8.0,
+    8.45
+  ],
+  "test_examined": true,
+  "no_test_tuning": true
+}

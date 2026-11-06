@@ -1,0 +1,4 @@
+split,model,n,accuracy,macro_f1,balanced_accuracy
+train,train_majority_baseline,1200,0.2075,0.06873706004140787,0.2
+validation,train_majority_baseline,400,0.155,0.05367965367965368,0.2
+test,train_majority_baseline,400,0.1875,0.06315789473684211,0.2

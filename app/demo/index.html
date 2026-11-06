@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171717">
+  <meta name="description" content="Explore the GE2340 linear regression model with a 24-hour activity schedule.">
+  <title>GE2340 · A day, in perspective</title>
+  <link rel="stylesheet" href="styles.css?v=light-result">
+  <link rel="stylesheet" href="desktop.css">
+  <script src="desktop-bar.js" defer></script>
+  <script src="model-data.js" defer></script>
+  <script src="model-registry.js" defer></script>
+  <script src="linear-adapter.js" defer></script>
+  <!-- Add a trained classifier adapter here, before app.js. See README.md. -->
+  <script src="app.js?v=activity-colors" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="masthead">
+      <a href="index.html" class="brand" aria-label="GE2340 demo home"><span class="brand-icon">g.</span><span>GE2340<span class="brand-sub">TIME USE & ACADEMIC PERFORMANCE</span></span></a>
+      <span class="project-tag"><span class="status-dot"></span> MODEL EXPLORER <span class="tag-number">/ 01</span></span>
+    </header>
+    <main>
+      <section class="intro" aria-labelledby="title">
+        <div><p class="eyebrow">FIVE ACTIVITIES. ONE SHARED DAY.</p><h1 id="title">A day, in perspective.</h1><p class="intro-copy">Explore how a daily time allocation translates into a model prediction.</p></div>
+        <div class="model-picker"><label for="model">ACTIVE MODEL</label><select id="model"></select><span id="model-description"></span></div>
+      </section>
+      <div class="workspace">
+        <section class="input-panel" aria-labelledby="input-title">
+          <div class="panel-heading"><div><p class="eyebrow">01 / YOUR INPUT</p><h2 id="input-title">Build a 24-hour day</h2></div><button class="text-button" id="reset" type="button">Reset example <span aria-hidden="true">↺</span></button></div>
+          <div class="budget"><div class="budget-top"><span>Daily time budget</span><strong><span id="total">24.0</span><span class="muted"> / 24 h</span></strong></div><div id="time-bar" class="time-bar" aria-hidden="true"></div><p id="budget-message" class="budget-message" role="status">Your full day is allocated.</p></div>
+          <form id="prediction-form" novalidate>
+            <div id="fields"></div>
+            <label class="balance-option"><input type="checkbox" id="auto-balance" checked><span>Use remaining hours for physical activity</span></label>
+            <p id="range-note" class="range-note" hidden></p>
+            <button type="submit" id="predict" class="primary-button"><span>Run prediction</span><span aria-hidden="true">↗</span></button>
+          </form>
+          <p class="input-footnote">Hours per day · Adjust the schedule, then run the model.</p>
+        </section>
+        <section class="output-panel" aria-labelledby="output-title">
+          <div class="prediction-card">
+            <div class="result-top"><p class="eyebrow">02 / MODEL OUTPUT</p><span id="result-state" class="result-state">EXAMPLE DAY</span></div>
+            <h2 id="output-title">Estimated relative group</h2>
+            <div id="regression-result">
+              <div class="score-row relative-summary"><span id="relative-grade" class="score group-result">—</span><div class="rank-block"><span class="rank-caption">ESTIMATED POSITION IN TRAINING SET</span><strong id="top-percent">—</strong><span class="rank-reference">Reference: training set<br><span id="reference-size">1,200</span> observed grades</span></div></div>
+              <div id="band-scale" class="band-scale" aria-label="Relative grade bands"></div>
+              <p class="mapping-note">Project-defined A/B/C/D/F bands · F is the lowest relative group.</p>
+              <details class="numeric-details"><summary>View numeric estimate & baseline</summary><div class="raw-estimate"><span>Predicted Grades (original units)</span><strong id="prediction-value">—</strong></div><div id="baseline-comparison" class="baseline-comparison"><div><span>Training-mean baseline</span><strong id="baseline-value">—</strong></div><div><span>Prediction − baseline</span><strong id="baseline-delta">—</strong></div></div></details>
+            </div>
+            <div id="classification-result" hidden><div id="class-value" class="score group-result">—</div><p class="class-note">Project-defined relative group</p><div id="probabilities"></div></div>
+            <p id="result-message" class="result-message" role="status" aria-live="polite"></p>
+            <div id="snapshot" class="snapshot"></div>
+          </div>
+          <div class="performance-heading"><h3>Model performance</h3><span>HELD-OUT TEST SET · 400 RECORDS</span></div>
+          <div id="metrics" class="metric-grid"></div>
+          <div class="comparison-note" id="comparison-note"><span class="note-symbol" aria-hidden="true">↘</span><p><strong id="mae-improvement">34.2% lower test MAE</strong><span>than predicting the training mean for everyone.</span></p></div>
+          <p class="performance-footnote">These metrics describe the full test set, not the accuracy of this individual prediction.</p>
+        </section>
+      </div>
+      <details class="method"><summary><span><span class="eyebrow">BEHIND THE PREDICTION</span><span class="method-title">What this model uses</span></span><span aria-hidden="true" class="plus">+</span></summary><div class="method-content"><div><h3>A fixed day, four fitted inputs</h3><p>The linear model uses study, extracurricular, sleep and social hours. Physical activity is the reference activity: all five durations sum to 24 hours. Changing a duration reallocates time within that day.</p></div><div><h3>Existing fitted model</h3><p>Ordinary least squares, fitted on 1,200 training records. The 400 validation and 400 test records use the fixed project split. Predictions retain the original Grades units and are not clipped.</p></div><div><h3>Reading the relative grade</h3><p>The regression estimate is mapped to the fixed training-derived grade bands. “Top” is the percentage of training grades above the estimate, with half of ties counted. It is a relative position within these 1,200 records, not a school-wide or cross-school ranking. The underlying output is a prediction for this dataset. Activity–grade relationships are associations, not causal effects. The data's original collection method and whether records are real or synthetic remain unverified.</p></div><div><h3>Next model</h3><p>Softmax classification can use the same activity inputs to return relative A/B/C/D/F bands. Its trained model is not yet connected. F denotes the lowest relative group, not an official failure category.</p></div></div></details>
+    </main>
+    <footer><span>GE2340 <span class="footer-divider">/</span> Data & baseline demonstration</span><span>Source: <a href="https://www.kaggle.com/datasets/charlottebennett1234/lifestyle-factors-and-their-impact-on-students" target="_blank" rel="noopener noreferrer">Charlotte Bennett1234 · Kaggle v3 ↗</a></span></footer>
+    <noscript>This demo requires JavaScript to calculate predictions.</noscript>
+  </div>
+</body>
+</html>
+

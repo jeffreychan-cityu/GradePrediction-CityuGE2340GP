@@ -1,0 +1,22 @@
+test_approved_labels_and_quintiles (test_pipeline.Checks.test_approved_labels_and_quintiles) ... ok
+test_bad_input_fails (test_pipeline.Checks.test_bad_input_fails) ... ok
+test_baseline_train_only (test_pipeline.Checks.test_baseline_train_only) ... ok
+test_clean_preserves (test_pipeline.Checks.test_clean_preserves) ... ok
+test_fixed_sum_and_reference (test_pipeline.Checks.test_fixed_sum_and_reference) ... ok
+test_label_boundary_function (test_pipeline.Checks.test_label_boundary_function) ... ok
+test_label_output_transitions (test_pipeline.Checks.test_label_output_transitions) ... /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/sklearn/metrics/_classification.py:620: UserWarning: A single label was found in 'y_true' and 'y_pred'. For the confusion matrix to have the correct shape, use the 'labels' parameter to pass all known labels.
+  warnings.warn(
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/sklearn/metrics/_classification.py:620: UserWarning: A single label was found in 'y_true' and 'y_pred'. For the confusion matrix to have the correct shape, use the 'labels' parameter to pass all known labels.
+  warnings.warn(
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/sklearn/metrics/_classification.py:620: UserWarning: A single label was found in 'y_true' and 'y_pred'. For the confusion matrix to have the correct shape, use the 'labels' parameter to pass all known labels.
+  warnings.warn(
+ok
+test_majority_recompute (test_pipeline.Checks.test_majority_recompute) ... ok
+test_manifest (test_pipeline.Checks.test_manifest) ... ok
+test_metrics_recompute (test_pipeline.Checks.test_metrics_recompute) ... ok
+test_scaler_train_only (test_pipeline.Checks.test_scaler_train_only) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.826s
+
+OK

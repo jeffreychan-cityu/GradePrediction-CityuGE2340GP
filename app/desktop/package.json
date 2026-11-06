@@ -1,0 +1,56 @@
+{
+  "name": "ge2340-model-explorer",
+  "version": "1.0.0",
+  "description": "GE2340 time-use model explorer",
+  "author": "GE2340 Project Team",
+  "private": true,
+  "main": "main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "test:desktop": "electron . --smoke-test",
+    "pack": "electron-builder --win --x64 --dir",
+    "dist": "electron-builder --win portable --x64"
+  },
+  "devDependencies": {
+    "electron": "44.4.5",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "edu.ge2340.modelexplorer",
+    "productName": "GE2340 Model Explorer",
+    "copyright": "GE2340 Project Team",
+    "asar": true,
+    "directories": {
+      "output": "../..",
+      "buildResources": "assets"
+    },
+    "files": [
+      "main.cjs",
+      "preload.cjs",
+      "smoke.cjs",
+      "assets/icon.ico",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "../demo",
+        "to": "demo",
+        "filter": [
+          "*.html",
+          "*.css",
+          "*.js"
+        ]
+      }
+    ],
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        "portable"
+      ],
+      "artifactName": "GE2340-Model-Explorer-${version}-Windows.${ext}"
+    },
+    "portable": {
+      "requestExecutionLevel": "user"
+    }
+  }
+}

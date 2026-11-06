@@ -1,0 +1,13 @@
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+app/desktop/smoke-results/
+win-unpacked/
+builder-debug.yml
+builder-effective-config.yaml
+*.blockmap
+.DS_Store
+Thumbs.db

@@ -1,0 +1,23 @@
+{
+  "estimator": "sklearn.linear_model.LinearRegression",
+  "loss": "squared_error",
+  "provisional_phase1_change": false,
+  "phase1_loss_verified": "MSE; user-uploaded submitted Phase1_Proposal.pdf, page 1",
+  "features": [
+    "Study_Hours_Per_Day",
+    "Extracurricular_Hours_Per_Day",
+    "Sleep_Hours_Per_Day",
+    "Social_Hours_Per_Day"
+  ],
+  "reference_feature": "Physical_Activity_Hours_Per_Day",
+  "intercept": 4.946142998946604,
+  "coefficients": [
+    0.39205883926008844,
+    -0.01921318337860804,
+    -0.009552603776502603,
+    0.0009504539626427669
+  ],
+  "mean_baseline": 7.777124999999999,
+  "fit_split": "train",
+  "no_clipping": true
+}

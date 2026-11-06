@@ -1,0 +1,27 @@
+{
+  "status": "approved",
+  "target": "Grades",
+  "cutpoints": [
+    7.1,
+    7.55,
+    8.0,
+    8.45
+  ],
+  "labels_low_to_high": [
+    "F",
+    "D",
+    "C",
+    "B",
+    "A"
+  ],
+  "rationale": "User-selected project-defined relative groups based on training-only quintiles (20%,40%,60%,80%; numpy/pandas linear quantile). Fixed original-scale boundaries, ties enter upper group. Not official academic grades; F is not literal failure. Never recompute using validation/test.",
+  "fit_split": "train",
+  "quantile_probabilities": [
+    0.2,
+    0.4,
+    0.6,
+    0.8
+  ],
+  "quantile_method": "linear",
+  "boundary_rule": "left-closed; equality enters upper group"
+}
