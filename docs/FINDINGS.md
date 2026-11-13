@@ -1,6 +1,6 @@
 # GE2340 Technical Findings
 
-Use these results to support the [English analysis report v5](../GE2340_Data_Analysis_EN_v5.md) and prepare model comparisons. File paths are relative to the package root. Model inputs and shared settings are in [HANDOFF.md](HANDOFF.md).
+Use these results to support the [English analysis report v6](../GE2340_Data_Analysis_EN_v6.md) and prepare model comparisons. File paths are relative to the package root. Model inputs and shared settings are in [HANDOFF.md](HANDOFF.md).
 
 Source: Charlotte Bennett1234, Kaggle dataset version 3. See [DATA_LICENSE.md](../DATA_LICENSE.md) for attribution and license references.
 
@@ -30,7 +30,7 @@ Both baselines were fitted on training rows only and specified without test-base
 | Test (400) | Mean baseline |0.565948|0.699383|−0.004431|
 | Test (400) | Linear regression |0.372452|0.473131|0.540324|
 
-MAE and RMSE use the original Grades units; R² is unitless. Page 1 of the submitted Phase 1 proposal specifies MSE, matching this OLS implementation. OLS meets its minimum value-prediction criterion, MAE(model) < MAE(mean baseline), on the fixed test split. These results describe this split; uncertainty across populations has not been estimated. The Softmax comparison awaits its experimental results. The neural-network comparison is an optional extension.
+MAE and RMSE use the original Grades units; R² is unitless. Page 1 of the submitted Phase 1 proposal specifies MSE, matching this OLS implementation. OLS meets its minimum value-prediction criterion, MAE(model) < MAE(mean baseline), on the fixed test split. These results describe this split; uncertainty across populations has not been estimated.
 
 ## Figure guide
 
@@ -43,6 +43,7 @@ Each figure is available as PNG and PDF in `outputs/figures/`. Page numbers belo
 | Supplement referenced in Section 3 | `03_relationships_train` | Each time predictor against Grades, training rows only |
 | Figure 3, page 5 | `04_validation_diagnostics` | Observed versus predicted Grades and validation residuals |
 | Additional package figure | `05_class_distribution_train` | Training relative-grade distribution |
+| Figures 4a - 4c, page ? | `06_sgd_confusion_train`, `07_sgd_confusion_validation`, `08_sgd_confusion_test` | Confusion matrices for the training set, validation set and test set on the multi-class linear classifier |
 
 ## Project-defined classification groups
 
