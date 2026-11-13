@@ -2,7 +2,7 @@
 
 Technical evidence | 13 November 2026 | Regression and classification method verified against submitted Phase 1
 
-This report documents the dataset, exploratory analysis, experimental settings and baseline results for the team report. Data preparation for continuous prediction is complete, and Section 6 defines the classification target. The regression method matches the submitted Phase 1 proposal.
+This report documents the dataset, exploratory analysis, experimental settings and baseline results for the team report. Data preparation for continuous prediction is complete, and Section 6 defines the classification target. The regression method matches the submitted Phase 1 proposal. The classification method is complete at section 7.
 
 ## 1 Dataset and data quality
 
