@@ -1,0 +1,4 @@
+split,model,n,accuracy,macro_f1,balanced_accuracy
+train,sgd_crossentropy_classifier,1200,0.44416666666666665,0.44008993438720434,0.4440690860713924
+validation,sgd_crossentropy_classifier,400,0.4,0.3902866709057642,0.3961316677101292
+test,sgd_crossentropy_classifier,400,0.4275,0.4283534296696535,0.44066970882225115
