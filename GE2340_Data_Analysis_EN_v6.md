@@ -1,6 +1,6 @@
 # GE2340 Data Analysis and Baseline Results
 
-Technical evidence | 3 November 2026 | Regression method verified against submitted Phase 1
+Technical evidence | 13 November 2026 | Regression and classification method verified against submitted Phase 1
 
 This report documents the dataset, exploratory analysis, experimental settings and baseline results for the team report. Data preparation for continuous prediction is complete, and Section 6 defines the classification target. The regression method matches the submitted Phase 1 proposal.
 
@@ -93,7 +93,7 @@ MAE measures mean absolute prediction error, and RMSE measures root mean squared
 
 - The dataset’s original collection method and real or synthetic provenance remain unverified.
 - The OLS model and mean baseline have been evaluated on the fixed data split.
-- Section 6 defines the classification target. Softmax results, including classification accuracy and Macro-F1, are pending. The neural-network experiment is optional.
+- Section 6 defines the classification target and the majority-baseline class results. This is used to compare against section 7, which has the softmax results, including classification accuracy and Macro-F1.
 
 ### Evidence and source references
 
@@ -107,7 +107,6 @@ Reproducible evidence: [metrics.csv](outputs/metrics.csv); [regression_model.jso
 
 - The grade bands in Section 6 are fixed.
 - The regression baseline uses the squared-error OLS objective and four predictors under the fixed 24-hour constraint.
-- Softmax results remain to be integrated into the team report. Include neural-network results if the optional experiment is completed.
 
 ## 6 Project-defined classification target
 
@@ -140,3 +139,50 @@ The majority-class baseline always predicts B, the most frequent training class 
 | test | 18.75% | 0.06316 | 0.20 |
 
 Macro-F1 gives equal weight to each class. Balanced accuracy is mean class recall. Evidence: [class_counts.csv](outputs/class_counts.csv) and [classification_metrics.csv](outputs/classification_metrics.csv) in v2.
+
+## 7 Multi-class linear classifier and baseline evaluation
+
+### Model methods and settings
+- Given that the 5 different predictors are correlated with each other, as they sum up to 24 hours, these predictors are strongly correlated with each other. Hence, we will use a multi-class linear classifier that fits a linear model in a non-linear (polynomial) feature space.
+- We fitted the multi-class linear classifier with scikit-learn `SGDClassifier`. In particular, we first built a pipeline to expand the predictors to include squared and interaction terms, resulting in a total of 20 internal features. Hence, while the model itself is linear, the decision boundary for the grades produced is non-linear.
+- The model uses `loss='log_loss'`, which enables the model to optimize the cross-entropy loss via the softmax function across all 5 grades. It contains both L1 and L2 regularization, with weights of 0.15 and 0.85, respectively, and the regularization strength is set to `alpha='0.001'`. The learning rate of the model remains fixed at 0.005 to ensure convergence, and the decision boundary for the middle grades (D - B) is slightly expanded to accommodate more students. Finally, the model runs for 3000 iterations. Such specifications match the implementation details from phase 1, with additional internal features to further strengthen the classifier's decision boundaries.
+- During the model training process, the validation data showed some grades concentrated in certain grades. (e.g., Grades A and F were large sinkholes, encompassing a majority of the students, leading to sparse population in the middle grades.) or some grades completely collapsed. Hence, the `class_weight={...}` was iteratively modified to increase the weight of the intermediate grades (D-B) and slightly reduce the weight of the extreme grades (F & A). This gives the final `class_weight` as follows:
+`'F': 1.0 | 'D': 1.3 | 'C': 1.4 | 'B': 1.4 | 'A': 0.9`
+
+### Results and figures
+After training the model, the model's confusion matrices for the training, validation, and test sets, and the model's metrics are as follows:
+
+| Training Set | Validation Set | Test Set |
+|---|---|---|
+| ![SGD Classifier Confusion Matrix — Training Set](outputs/figures/06_sgd_confusion_train.png) | ![SGD Classifier Confusion Matrix — Validation Set](outputs/figures/07_sgd_confusion_validation.png) | ![SGD Classifier Confusion Matrix — Test Set](outputs/figures/08_sgd_confusion_test.png)
+
+| Split | Model | Accuracy | Macro-F1 | Balanced accuracy |
+|---|---|---:|---:|---:|
+| train | multi-class linear classifier | 0.4441 | 0.4400 | 0.4440 |
+| validation | multi-class linear classifier | 0.4000 | 0.3902 | 0.3961 |
+| test | multi-class linear classifier | 0.4275 | 0.4283 | 0.4406 |
+
+Comparing it with the majority-class baseline:
+
+| Split | Accuracy | Macro-F1 | Balanced accuracy |
+|---|---:|---:|---:|
+| train | 20.75% | 0.06874 | 0.20 |
+| validation | 15.50% | 0.05368 | 0.20 |
+| test | 18.75% | 0.06316 | 0.20 |
+
+We can derive the following observations:
+
+### Discussion: Observation
+- On the test set, the multi-class linear classifier had an Accuracy, Macro-F1, and Balanced Accuracy of 0.4275, 0.4283, and 0.4406, respectively. Compared with 0.1875, 0.06316, and 0.20 for the majority-class baseline, this shows an improvement of over 100% across all statistics, with the Macro-F1 showing the greatest improvement of around 579%. This indicates that the classifier successfully learned the dataset's features and was able to assign students to the correct grade tiers more precisely overall than blindly assigning all students to the same grade, as described in the majority-class baseline.
+- Both the train set and the validation set share fairly similar Accuracy, Macro-F1, and Balanced Accuracy, with a small drop-off of around 10%. This shows that the model did not suffer from underfitting or overfitting and was able to generalize well to the data.
+- In the case of the classifier failing to put a student into the correct grade boundaries, the classifier also tends to put them into the next nearest grade boundaries. For example, if the student's actual grade is C, the classifier usually assigns them a grade of D or B. This can be observed in the confusion matrices for the training, validation, and test sets, indicating that the model exhibits a fairly strong diagonal relationship.
+
+### Discussion: Model differences
+- Compared to the linear regression model described above, which predicts the student's grade by a single grade point, using the multi-class linear classifier frames the problem as classifying students into a finite, discrete number of categories. This shift allows direct control over class boundaries via `class_weight`, which helps alleviate the grade sinkhole and collapse problems.
+- As concluded in `Phase1_Proposal.pdf`, page 2, a multi-class linear classifier is more suited. Its ability to determine the exact grade value, rather than a fixed number from linear regression, provides stronger insight for the target audience. Hence, the end product (the website and the exe file) will preferably use the classification model rather than the regression model.
+
+### Discussion: Model limitations
+- The classifier model optimizes the cross-entropy loss using a standard softmax activation function. Hence, it treats the grade categories as independent. This results in the same loss incurred when the classifier incorrectly predicts whether the grade difference is large. Hence, an improved loss objective could penalize the model less if it predicts incorrectly but the grade difference is small, or vice versa.
+- Even though the model has generally better performance over the majority-baseline class, its accuracy is still relatively low. This is because students in the intermediate grades tend to have similar time allocations. This results in the classifier making fairly close predictions for those grades, effectively turning it into an equal-probability gamble. While including those squared terms and interaction terms helped improve accuracy slightly, it is by no means a fully effective remedy for the classifier's low accuracy.
+
+Reproducible evidence: [sgd_classification_metrics.csv](outputs/sgd_classification_metrics.csv); [sgd_confusion_test.csv](outputs/sgd_confusion_test.csv); [sgd_confusion_train.csv](outputs/sgd_confusion_train.csv); [sgd_confusion_validation.csv](outputs/sgd_confusion_validation.csv); [run_pipeline.py](src/run_pipeline.py). Raw source metadata and the executable pipeline are included in the data package.
