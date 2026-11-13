@@ -1,4 +1,5 @@
-"""GE2340 data/EDA + regression handoff. No classifier or neural network."""
+"""GE2340 data/EDA + regression handoff.""" 
+"""Nov 13 Update (Jeffrey): With classifier provided, but no neural network provided."""
 from pathlib import Path
 import argparse, hashlib, json, platform, os, tempfile
 os.environ.setdefault("MPLCONFIGDIR", str(Path(tempfile.gettempdir()) / "ge2340_matplotlib"))
@@ -158,8 +159,124 @@ def run(out):
     axs[1].scatter(pred,v[TARGET]-pred,s=14,alpha=.5,color='#28698F');axs[1].axhline(0,color='#333333',ls='--');axs[1].set(xlabel='Predicted Grades',ylabel='Observed − predicted',title='Validation residuals');savefig(fig,figures/'04_validation_diagnostics')
     config=json.loads((ROOT/'config/grade_bands.json').read_text())
     write_grade_outputs(df,config,proc,out)
+
+    # After finishing the regression model, we proceed to the classifier model.
+    run_classifier(out, proc, sets);
+
     dump({'python':platform.python_version(),'numpy':np.__version__,'pandas':pd.__version__,'scikit_learn':sklearn.__version__,'matplotlib':matplotlib.__version__},out/'environment.json')
     print(pd.DataFrame(metrics).to_string(index=False));print(json.dumps(audit,indent=2))
 
+from sklearn.linear_model import SGDClassifier
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.pipeline import Pipeline
+
+def run_classifier(out, proc, sets):
+    out = Path(out)
+    figures = out / 'figures'
+    figures.mkdir(exist_ok=True)
+
+    grades_path = proc / 'grade_labels.csv'
+    if not grades_path.exists():
+        print("Grade labels not approved/available; skipping classifier.")
+        return
+
+    grades_df = pd.read_csv(grades_path)
+    order = ['F', 'D', 'C', 'B', 'A']
+    
+    # Merge train scaled with grade labels
+    train_merged = sets['train'].merge(grades_df[['row_id', 'grade_class']], on='row_id')
+    X_train = train_merged[FEATURES] # SGD handles all 5 features natively
+    y_train = train_merged['grade_class']
+
+    # Initialize and train SGD classifier with cross-entropy loss
+    # Build a pipeline that expands features, scales them, then runs the SGD classifier
+    pipeline = Pipeline([
+        ('poly', PolynomialFeatures(degree=2, include_bias=False)),
+        ('scaler', StandardScaler()),
+        ('clf', SGDClassifier(
+            loss='log_loss', 
+            penalty='elasticnet',  
+            l1_ratio=0.15,         
+            alpha=0.001,           
+            learning_rate='constant',
+            eta0=0.005,            
+            class_weight={
+                'F': 1.0,
+                'D': 1.3,     
+                'C': 1.4,
+                'B': 1.4, 
+                'A': 0.9
+            },
+            max_iter=3000, 
+            random_state=SEED
+        ))
+    ])
+    pipeline.fit(X_train, y_train)
+
+    # Output file formats.
+    fig_meta = {
+        'train': ('06_sgd_confusion_train', 'SGD Classifier Confusion Matrix — Training Set'),
+        'validation': ('07_sgd_confusion_validation', 'SGD Classifier Confusion Matrix — Validation Set'),
+        'test': ('08_sgd_confusion_test', 'SGD Classifier Confusion Matrix — Test Set')
+    }
+
+    class_metrics = []
+    for s, d in sets.items():
+        d_merged = d.merge(grades_df[['row_id', 'grade_class']], on='row_id')
+        X_split = d_merged[FEATURES]
+        y_true = d_merged['grade_class']
+        
+        y_pred = pipeline.predict(X_split)
+        
+        acc = accuracy_score(y_true, y_pred)
+        macro_f1 = f1_score(y_true, y_pred, labels=order, average='macro', zero_division=0)
+        bal_acc = balanced_accuracy_score(y_true, y_pred)
+        
+        class_metrics.append({
+            'split': s,
+            'model': 'sgd_crossentropy_classifier',
+            'n': len(d_merged),
+            'accuracy': acc,
+            'macro_f1': macro_f1,
+            'balanced_accuracy': bal_acc
+        })
+        
+        # Save confusion matrix
+        cm = confusion_matrix(y_true, y_pred, labels=order)
+        pd.DataFrame(cm, index=pd.Index(order, name='actual'), columns=order).to_csv(
+            out / f'sgd_confusion_{s}.csv'
+        )
+
+        # Generate and save visual heatmap (both PNG and PDF via savefig)
+        fig_name, fig_title = fig_meta[s]
+        fig, ax = plt.subplots(figsize=(6.5, 5.5), layout='constrained')
+        im = ax.imshow(cm, cmap='Blues', vmin=0)
+        
+        ax.set_xticks(range(len(order)), order)
+        ax.set_yticks(range(len(order)), order)
+        ax.set_xlabel('Predicted Grade')
+        ax.set_ylabel('Actual Grade')
+        ax.set_title(f"{fig_title} (n={len(d_merged)})")
+        
+        # Annotate cells with exact student counts, adjusting text contrast dynamically
+        thresh = cm.max() / 2.0
+        for i in range(len(order)):
+            for j in range(len(order)):
+                ax.text(
+                    j, i, f'{cm[i, j]}',
+                    ha='center', va='center',
+                    color='white' if cm[i, j] > thresh else '#1f2937',
+                    fontweight='bold' if i == j else 'normal'
+                )
+                
+        fig.colorbar(im, ax=ax, label='Student Count')
+        savefig(fig, figures / fig_name)
+
+    pd.DataFrame(class_metrics).to_csv(out / 'sgd_classification_metrics.csv', index=False)
+    print("SGD Classifier evaluation complete and metrics saved.")
+
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--out',type=Path,default=ROOT/'outputs');a=p.parse_args();run(a.out)
+    p=argparse.ArgumentParser()
+    p.add_argument('--out',type=Path,default=ROOT/'outputs')
+    a=p.parse_args()
+    run(a.out)
