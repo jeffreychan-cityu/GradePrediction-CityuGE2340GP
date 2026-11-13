@@ -7,8 +7,8 @@ This package contains the shared data, completed baseline experiments and materi
 | Purpose | Read | Then use |
 |---|---|---|
 | Continue the model experiments | [Technical handoff](docs/HANDOFF.md) | `outputs/processed/`, `config/grade_bands.json`, `src/load_data.py` |
-| Write the report | [English analysis report v5](GE2340_Data_Analysis_EN_v5.md) | [Technical findings](docs/FINDINGS.md), result CSVs and original figures |
-| Prepare comparisons and slides | [English analysis report v5](GE2340_Data_Analysis_EN_v5.md) | [Figure mapping](docs/FINDINGS.md#figure-guide) and `outputs/figures/` |
+| Write the report | [English analysis report v6](GE2340_Data_Analysis_EN_v6.md) | [Technical findings](docs/FINDINGS.md), result CSVs and original figures |
+| Prepare comparisons and slides | [English analysis report v5](GE2340_Data_Analysis_EN_v6.md) | [Figure mapping](docs/FINDINGS.md#figure-guide) and `outputs/figures/` |
 
 Use the Markdown report for edits and team writing. The PDF is generated from the current v5 Markdown report; update both formats when revising the report. Team documentation is in English; the corresponding Chinese report and personal reference materials are in [reference_zh/](reference_zh/).
 
