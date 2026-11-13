@@ -1,6 +1,6 @@
 # GE2340 Technical Handoff
 
-This handoff separates Alex's completed data and baseline work from Jeffrey's model tasks. It accompanies the v3 data and code and the [English analysis report v5](../GE2340_Data_Analysis_EN_v5.md). Paths are relative to the package root.
+This handoff separates Alex's completed data and baseline work from Jeffrey's model tasks. It accompanies the v3 data and code and the [English analysis report v6](../GE2340_Data_Analysis_EN_v6.md). Paths are relative to the package root.
 
 **Jeffrey: start with Part B for your tasks, input files and deliverables.** Part A records Alex's completed work; Part C defines the shared inputs and labels.
 
@@ -83,6 +83,14 @@ Provide the following for Softmax. If the optional neural network is completed, 
 Give these materials to Writer A for the English report and Writer B for model comparisons and slides. Writer B uses the supplied results, figures and explanations to prepare the presentation.
 
 Regression comparisons use MAE, RMSE and R² for the mean baseline and OLS, adding the neural network if the optional experiment is completed. Classification comparisons use Accuracy and Macro-F1 for the majority baseline and Softmax. The existing classification outputs also contain balanced accuracy.
+
+Update (Nov 13) - The classification model is complete, and can be seen in `src/run_pipeline.py`. Since it is an append to the regression model, the classification model is created after the regression model and its figures have completed. To run the code on the local computer, make sure to have installed `numpy`, `pandas`, `scikit-learn` and `matplotlib`. Construct the folder structure the same as described in the repository, and include `data/raw/student_lifestyle..csv` file, as well as the specified files above. Afterwards, simply execute the pipeline and all the figures, csv files will be generated automatically. 
+
+The other sections are all included in the [English analysis report v6](../GE2340_Data_Analysis_EN_v6.md), appended at section 7. Some of the text within the report is also modified to inform that the classifier has been implemented, but the neural network will not be worked on for now. (Do note that vibe coding was used to complete the linear classifier, though the analysis report was completly written by me.)
+
+I have also attempted to update the links that direct to the report/PDF, through this maybe incomplete. Additionally, Alex will need to generate the PDF file again, since the VSCode's extension `Markdown PDF` generates a completely different PDF format. The links to the PDF file is updated, so Alex only needs to modify the updated PDF's name to `GE2340_Data_Analysis_EN_v6.pdf`. Furthermore, no Chinese MD or PDF file is provided (if you want to update it, translate it on your own accord). Lastly, Alex will need to connect the classifier to the webpage/the executable file, as I do not have the access to the source build and that I do not know the underlying logic of the webpage well.
+
+If there's any question, feel free to contact me in WhatsApp so that I can correct it, although I will be busy for the next week to finish an individual report, individual presentation and preparing for a test. Hopefully, I wouldn't be interfered much before the presentation of our finished project. - Jeffrey (Nov 13)
 
 ## Part C — Shared reference: data, features and labels
 
