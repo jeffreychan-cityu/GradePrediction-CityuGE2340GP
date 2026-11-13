@@ -156,6 +156,8 @@ After training the model, the model's confusion matrices for the training, valid
 |---|---|---|
 | ![SGD Classifier Confusion Matrix — Training Set](outputs/figures/06_sgd_confusion_train.png) | ![SGD Classifier Confusion Matrix — Validation Set](outputs/figures/07_sgd_confusion_validation.png) | ![SGD Classifier Confusion Matrix — Test Set](outputs/figures/08_sgd_confusion_test.png)
 
+**Figure 4a, 4b and 4c.** Confusion matrices for the training set, validation set and the test set. Source attribution appears on the figure. 
+
 | Split | Model | Accuracy | Macro-F1 | Balanced accuracy |
 |---|---|---:|---:|---:|
 | train | multi-class linear classifier | 0.4441 | 0.4400 | 0.4440 |
